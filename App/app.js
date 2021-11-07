@@ -4,20 +4,18 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server: SocketServer } = require('socket.io');
 const io = new SocketServer(server);
-
+const socketIoHandler = require('./SocketIOHandler');
+const appHandler = require('./appHandler');
 
 const start = () => {
-    app.listen(8033, () => {
+
+    server.listen(8033, () => {
         console.log("Listening to 8033");
     });
 
+    appHandler.handleApp(app, express);
 
-
-    app.get("/", (request, response) => {
-        response.send("Hello World");
-    });
-
-
+    socketIoHandler.handleSocketIo(io);
 }
 
 module.exports = {
