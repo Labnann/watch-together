@@ -1,14 +1,50 @@
-(()=>{
-    var socket = io();
+(() => {
+  const socket = io();
+  const video = document.getElementById("shared_video");
+  const videoSourceSendButton = document.getElementById("set_video_source");
+  const videoSourceText = document.getElementById("video_source_text");
 
-    const sendObject = (object) => {
-      socket.emit('object', object);
+  let isLocked = false;
+
+  const sendObject = (object) => {
+    if(!isLocked)
+    socket.emit('object', object);
+  }
+
+  const lockSocket = ()=>{
+    isLocked = true;
+  }
+
+
+  const unlockSocket = ()=>{
+    const unlock =() =>{
+      isLocked = false;
     }
 
-   socket.on("object", (object) => {
-            console.log(object);
-        }) 
+    setTimeout(unlock,250);
 
-    window.sendObject = sendObject;
+  }
+
+  socket.on("object", (object) => {
+    lockSocket();
+    video.currentTime = object.currentTime;
+    unlockSocket();
+  })
+
+
+  videoSourceSendButton.onclick = () => {
+    const sourceText = videoSourceText.value;
+    video.src = sourceText;
+  }
+
+
+  video.onseeked = (evet) => {
+    sendObject({currentTime: video.currentTime})
+  }
+
+  
+
+
+  window.sendObject = sendObject;
 })();
 
