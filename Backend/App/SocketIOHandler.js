@@ -19,8 +19,9 @@ const handleSocketIo = (io)=>{
         });
 
         socket.on("sync", (object)=>{
-            socket.broadcast.emit("object", {
-                currentTime: object.currentTime
+            socket.emit("object", {
+                currentTime: object.currentTime,
+                playingStatus: "paused"
             })
         });
     }

@@ -37,7 +37,8 @@
   socket.on("object", (object) => {
     lockSocket();
     video.currentTime = object.currentTime;
-    if (object.changePlayingStatus) changePlayStatus();
+    if (object.playingStatus === "playing") video.play();
+    if (object.playingStatus === "paused") video.pause(); 
     unlockSocket();
   })
 
@@ -55,18 +56,16 @@
   }
 
   video.onplay = () => {
-    isPlaying = true;
     sendObject({
       currentTime: video.currentTime,
-      changePlayingStatus: true
+      playingStatus: "playing"
     })
   }
 
   video.onpause = () => {
-    isPlaying = false;
     sendObject({
       currentTime: video.currentTime,
-      changePlayingStatus: true
+      playingStatus: "paused"
     })
 
   }
@@ -84,7 +83,7 @@
   (()=>{
     const forceSyncButton = document.getElementById("force_sync_button");
     forceSyncButton.onclick = ()=>{
-      socket.emit('sync', {currentTime : currentTime});
+      socket.emit('sync', {currentTime : video.currentTime});
     }
   })()
 
