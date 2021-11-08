@@ -3,39 +3,41 @@
   const video = document.getElementById("shared_video");
   const videoSourceSendButton = document.getElementById("set_video_source");
   const videoSourceText = document.getElementById("video_source_text");
-  
+  const inputVideoFile = document.getElementById("input_video");
+  const inputVideoRunButton = document.getElementById("input_video_runner");
+
   let isPlaying = false;
   let isLocked = false;
 
   const sendObject = (object) => {
-    if(!isLocked)
-    socket.emit('object', object);
+    if (!isLocked)
+      socket.emit('object', object);
   }
 
-  const lockSocket = ()=>{
+  const lockSocket = () => {
     isLocked = true;
   }
 
 
-  const unlockSocket = ()=>{
-    const unlock =() =>{
+  const unlockSocket = () => {
+    const unlock = () => {
       isLocked = false;
     }
 
-    setTimeout(unlock,100);
+    setTimeout(unlock, 100);
 
   }
 
-  function changePlayStatus(){
+  function changePlayStatus() {
     isPlaying = !isPlaying;
-    if(!isPlaying) video.pause();
+    if (!isPlaying) video.pause();
     else video.play();
   }
 
   socket.on("object", (object) => {
     lockSocket();
     video.currentTime = object.currentTime;
-    if(object.changePlayingStatus) changePlayStatus();
+    if (object.changePlayingStatus) changePlayStatus();
     unlockSocket();
   })
 
@@ -49,10 +51,10 @@
 
 
   video.onseeked = (evet) => {
-    sendObject({currentTime: video.currentTime})
+    sendObject({ currentTime: video.currentTime })
   }
-  
-  video.onplay = ()=>{
+
+  video.onplay = () => {
     isPlaying = true;
     sendObject({
       currentTime: video.currentTime,
@@ -60,18 +62,31 @@
     })
   }
 
-  video.onpause = () =>{
-   isPlaying = false;
+  video.onpause = () => {
+    isPlaying = false;
     sendObject({
       currentTime: video.currentTime,
       changePlayingStatus: true
     })
- 
+
   }
-  
 
-  
 
+
+  inputVideoRunButton.onclick = () => {
+    if (inputVideoFile.files[0] === undefined) inputVideoFile.click();
+    const videoFileURL = window.URL.createObjectURL(inputVideoFile.files[0]);
+    console.log(videoFileURL);
+    video.src = videoFileURL;
+  }
+
+
+  (()=>{
+    const forceSyncButton = document.getElementById("force_sync_button");
+    forceSyncButton.onclick = ()=>{
+      socket.emit('sync', {currentTime : currentTime});
+    }
+  })()
 
   window.sendObject = sendObject;
 })();

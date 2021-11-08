@@ -4,19 +4,24 @@
     ServerSocket BoilerPlate
 </title>
 <h3>
-    ServerSocket BoilerPlate
+    Watch Together 
 </h3>
 
 <div>
     <input type="text" placeholder="video source" id="video_source_text">
     <button id="set_video_source">Set!</button>
 </div>
-
-<video id="shared_video" 
-    controls width="250" 
-    src="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4">
+<div>
+<video id="shared_video" controls width="250" src="">
     Sorry, your browser doesn't support embedded videos.
 </video>
+</div>
+<div>
+    <input type="file" id="input_video">
+    <button id="input_video_runner">run!</button>
+</div>
+
+<button id="force_sync_button">Force Sync</button>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/main.js">

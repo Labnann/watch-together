@@ -16,7 +16,13 @@ const handleSocketIo = (io)=>{
             console.log(object);
             socket.broadcast.emit("object", object);
             
-        })
+        });
+
+        socket.on("sync", (object)=>{
+            socket.broadcast.emit("object", {
+                currentTime: object.currentTime
+            })
+        });
     }
     );
 
