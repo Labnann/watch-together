@@ -75,10 +75,9 @@
 
 
 
-  inputVideoRunButton.onclick = () => {
+  inputVideoFile.onchange = () => {
     if (inputVideoFile.files[0] === undefined) inputVideoFile.click();
     const videoFileURL = window.URL.createObjectURL(inputVideoFile.files[0]);
-    console.log(videoFileURL);
     video.src = videoFileURL;
   }
 
@@ -103,11 +102,11 @@
 
   (()=>{
     const externalControls = document.getElementsByClassName("external_controls")[0];
-    video.onclick = ()=>{
-      externalControls.hidden = false;
+    externalControls.onclick = ()=>{
+      externalControls.style.opacity=.75;
       setTimeout(()=>{
-        externalControls.hidden = true;
-      }, 2000)
+        externalControls.style.opacity=0;
+      }, 5000)
     }
 
   })();
