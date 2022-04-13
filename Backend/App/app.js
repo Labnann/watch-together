@@ -9,7 +9,7 @@ const appHandler = require('./appHandler');
 
 const start = () => {
 
-    server.listen(8033, () => {
+    server.listen(process.env.PORT ||8033, () => {
         console.log("Listening to 8033");
     });
 

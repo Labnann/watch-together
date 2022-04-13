@@ -1,4 +1,7 @@
 (() => {
+  const states = {
+    rotated:false
+  }
   const socket = io();
   const video = document.getElementById("shared_video");
   const videoSourceSendButton = document.getElementById("set_video_source");
@@ -86,6 +89,7 @@
       socket.emit('sync', {currentTime : video.currentTime});
     }
   })()
+
 
   window.sendObject = sendObject;
 })();
