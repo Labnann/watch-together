@@ -102,10 +102,13 @@
 
   (()=>{
     const externalControls = document.getElementsByClassName("external_controls")[0];
-    externalControls.onclick = ()=>{
+    const curtain = document.getElementById("curtain");
+    curtain.onclick = ()=>{
       externalControls.style.opacity=.75;
+      curtain.hidden = true;
       setTimeout(()=>{
         externalControls.style.opacity=0;
+        curtain.hidden=false;
       }, 5000)
     }
 
