@@ -1,30 +1,49 @@
 <!DOCTYPE html>
-<html>
-<title>
-    ServerSocket BoilerPlate
-</title>
-<h3>
-    Watch Together 
-</h3>
+<html lang="en">
 
-<div>
-    <input type="text" placeholder="video source" id="video_source_text">
-    <button id="set_video_source">Set!</button>
-</div>
-<div>
-<video id="shared_video" controls width="250" src="">
-    Sorry, your browser doesn't support embedded videos.
-</video>
-</div>
-<div>
-    <input type="file" id="input_video">
-    <button id="input_video_runner">run!</button>
-</div>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Watch It Together
+    </title>
+    <link rel="stylesheet" href="./css/main.css" name="www-player">
 
-<button id="force_sync_button">Force Sync</button>
+</head>
 
+<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <h3 hidden>
+        Watch Together
+    </h3>
+
+
+
+    <div class="app">
+        
+            <div class="external_controls">
+                <div>
+                    <input type="text" placeholder="video source" id="video_source_text">
+                    <button id="set_video_source">Set!</button>
+                </div>
+                <div id="file_selector">
+                    <input type="file" id="input_video">
+                    <button id="input_video_runner">run!</button>
+                    <button id="force_sync_button">Force Sync</button>
+                </div>
+             
+            </div>
+
+
+
+     
+        <video id="shared_video" class="video" controls src="">
+            Sorry, your browser doesn't support embedded videos.
+        </video>
+    </div>
+
+</body>
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/main.js">
+<script src="./js/main.js">
 
 </script>
 <script>
