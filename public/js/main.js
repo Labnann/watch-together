@@ -88,7 +88,30 @@
     forceSyncButton.onclick = ()=>{
       socket.emit('sync', {currentTime : video.currentTime});
     }
-  })()
+  })();
+
+
+  (()=>{
+    const rotateButton = document.getElementById("rotate_button");
+    rotateButton.onclick = ()=>{
+      console.log("clicked", video, states.rotated)
+      states.rotated = !states.rotated;
+      states.rotated? video.classList.add("rotated"):video.classList.remove("rotated");
+    }
+  })();
+
+
+  (()=>{
+    const externalControls = document.getElementsByClassName("external_controls")[0];
+    video.onmouseover = ()=>{
+      externalControls.hidden = false;
+      console.log("hovering")
+      setTimeout(()=>{
+        externalControls.hidden = true;
+      }, 2000)
+    }
+
+  })();
 
 
   window.sendObject = sendObject;
