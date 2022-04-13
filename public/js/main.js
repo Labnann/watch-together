@@ -103,9 +103,8 @@
 
   (()=>{
     const externalControls = document.getElementsByClassName("external_controls")[0];
-    video.onmouseover = ()=>{
+    video.onclick = ()=>{
       externalControls.hidden = false;
-      console.log("hovering")
       setTimeout(()=>{
         externalControls.hidden = true;
       }, 2000)
